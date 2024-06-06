@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
@@ -103,6 +103,15 @@ const Registration = ({ children }) => {
                             <button className="btn btn-primary">Sign Up</button>
                         </div>
                     </form>
+                    <div className="divider"></div>
+                    <div>
+                        <p className="mt-1 mb-4 text-xs font-light text-center text-gray-700">
+                            {" "}
+                            Already have an account?{" "}
+                            <Link className="font-medium text-indigo-600 hover:underline" to='/login'> Login</Link>
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

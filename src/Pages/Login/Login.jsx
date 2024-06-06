@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
@@ -32,7 +32,7 @@ const Login = () => {
             })
     }
 
-    const handleGoogleLogin = () =>{
+    const handleGoogleLogin = () => {
         console.log('Google login');
         googleSignIn()
             .then((result) => {
@@ -79,13 +79,24 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <div className="text-center p-4">
+                    <div className="divider"></div>
+                    <div className="text-center ml-10">
                         <button onClick={handleGoogleLogin} className="flex gap-4 items-center"><FaGoogle /> Login with Google</button>
                     </div>
-                </div>
+                    <div className="divider"></div>
+                    <div>
+                        <p className="mt-1 mb-4 text-xs font-light text-center text-gray-700">
+                            {" "}
+                            Already have an account?{" "}
+                            <Link className="font-medium text-indigo-600 hover:underline" to='/registration'> SignUp</Link>
 
+                        </p>
+                    </div>
+                </div>
             </div>
+
         </div>
+
     );
 };
 
