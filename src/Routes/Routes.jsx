@@ -12,6 +12,7 @@ import AddBiodata from "../Pages/Dashboard/Biodata/AddBiodata";
 import EditBiodata from "../Pages/Dashboard/Biodata/EditBiodata";
 import ViewBioData from "../Pages/Dashboard/Biodata/ViewBioData";
 import Biodatalist from "../Pages/BioData/BioDataList/Biodatalist";
+import BioDataDetails from "../Pages/BioData/BioDataDetails/BioDataDetails";
 
 export const router = createBrowserRouter([
     {
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
         children:[
             {
                 path: "/",
-                element: <Home />
+                element: <Home />,
+                loader:()=>fetch('http://localhost:5000/bio-data-home')
             },
             {
                 path:'/login',
@@ -34,6 +36,10 @@ export const router = createBrowserRouter([
                 path:'/bio-data',
                 element: <Biodatalist />,
                 loader:()=>fetch('http://localhost:5000/bio-data')
+            },
+            {
+                path:'/view/:id',
+                element: <BioDataDetails />
             }
         ]
     },

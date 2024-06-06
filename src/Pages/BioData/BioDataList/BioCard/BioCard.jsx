@@ -24,8 +24,8 @@ const BioCard = ({ data }) => {
                             <td>{permanent_division}</td>
                         </tr>
                         <tr>
-                            <td className="font-semibold">Age: {age}</td>
-                            <td>34</td>
+                            <td className="font-semibold">Age: </td>
+                            <td>{age}</td>
                         </tr>
                         <tr>
                             <td className="font-semibold">Occupation: {occupation}</td>
