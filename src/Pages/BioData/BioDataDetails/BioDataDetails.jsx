@@ -40,7 +40,7 @@ const BioDataDetails = () => {
         const email = user?.email;
         const id = _id;
         const favInfo = {
-            email, id, name, profile_image, occupation, permanent_division
+            email, id, name, profile_image, occupation, permanent_division, BiodataId
         }
         // console.log(favInfo);
 

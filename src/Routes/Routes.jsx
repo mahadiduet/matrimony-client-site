@@ -17,6 +17,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import FavouriteBio from "../Pages/Dashboard/FavBio/FavouriteBio";
 import Payment from "../Pages/Payment/Payment";
 import ReqBio from "../Pages/Dashboard/ReqBio/ReqBio";
+import ManageUsers from "../Pages/ManageUsers/ManageUsers";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path:'userHome',
                 element:<userHome />
+            },
+            {
+                path:'/dashboard/manageUser',
+                element:<ManageUsers />
             },
             {
                 path:'addBiodata',

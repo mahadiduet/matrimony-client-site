@@ -1,13 +1,12 @@
+import { useState } from "react";
 import { FaTrash } from "react-icons/fa6";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const FavouriteBio = () => {
-    const favData = useLoaderData();
-    // console.log(favData);
-
+    const initialData = useLoaderData();
+    const [favData, setFavData] = useState(initialData);
     const handleDelete = async (data) => {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -24,20 +23,17 @@ const FavouriteBio = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount > 0) {
+                            setFavData(prevData => prevData.filter(item => item._id !== data._id));
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
                         }
-                        console.log(data);
                     })
 
             }
         });
-        // e.preventDefault();
-        // console.log(data._id);
-        console.log(data);
 
     }
 
@@ -45,15 +41,15 @@ const FavouriteBio = () => {
     return (
         <div className="overflow-x-auto">
             <table className="table">
-                {/* head */}
                 <thead>
                     <tr>
                         <th>
                             #
                         </th>
-                        <th>Image</th>
                         <th>Name</th>
-                        <th>Permanent Division</th>
+                        <th>BioDate Id</th>
+                        <th>Permanent Address</th>
+                        <th>Occupation</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -64,24 +60,17 @@ const FavouriteBio = () => {
                                 {index + 1}
                             </th>
                             <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src={data.profile_image} />
-                                        </div>
-                                    </div>
-                                </div>
+                                {data.name}
                             </td>
                             <td>
-                                <div>
-                                    <div className="font-bold">{data.name}</div>
-                                    <div className="text-sm opacity-50">{data.occupation}</div>
-                                </div>
+                                {data.BiodataId}
                             </td>
                             <td>
                                 {data.permanent_division}
                             </td>
-
+                            <td>
+                                {data.occupation}
+                            </td>
                             <th>
                                 <button onClick={() => handleDelete(data)} className="btn btn-secondary btn-md"><FaTrash /></button>
                             </th>
@@ -89,8 +78,6 @@ const FavouriteBio = () => {
                     }
 
                 </tbody>
-
-
             </table>
         </div>
     );
