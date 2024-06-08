@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { FaAd, FaBook, FaCalendar, FaEdit, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+import { FaAd, FaBook, FaCalendar, FaEdit, FaEnvelope, FaHome, FaList, FaPlus, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../FirebaseProvider/FirebaseProvider";
 import { FaUsersViewfinder } from "react-icons/fa6";
 import { CiLogout, CiViewTimeline } from "react-icons/ci";
-import { MdOutlineFavorite } from "react-icons/md";
+import { MdConnectWithoutContact, MdOutlineFavorite } from "react-icons/md";
 
 const Dashboard = () => {
 
@@ -54,6 +54,11 @@ const Dashboard = () => {
                             User Home</NavLink>
                     </li>
                     <li>
+                        <NavLink to={`/dashboard/addBiodata`}>
+                            <FaPlus></FaPlus>
+                            Add Bio Data</NavLink>
+                    </li>
+                    <li>
                         <NavLink to={`/dashboard/bioEdit/${user_email}`}>
                             <FaEdit></FaEdit>
                             Bio-Data Update</NavLink>
@@ -67,6 +72,11 @@ const Dashboard = () => {
                         <NavLink to={`/dashboard/favBio/${user_email}`}>
                             <MdOutlineFavorite></MdOutlineFavorite>
                             My Favourite Bio </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/dashboard/reqBio/${user_email}`}>
+                        <MdConnectWithoutContact></MdConnectWithoutContact>
+                            My Request Bio Info </NavLink>
                     </li>
                     <li>
                         <NavLink to={`/dashboard/logout`}>

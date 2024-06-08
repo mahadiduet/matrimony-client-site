@@ -16,6 +16,7 @@ import BioDataDetails from "../Pages/BioData/BioDataDetails/BioDataDetails";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import FavouriteBio from "../Pages/Dashboard/FavBio/FavouriteBio";
 import Payment from "../Pages/Payment/Payment";
+import ReqBio from "../Pages/Dashboard/ReqBio/ReqBio";
 
 export const router = createBrowserRouter([
     {
@@ -53,7 +54,7 @@ export const router = createBrowserRouter([
     },
     {
         path:'dashboard',
-        element:<Dashboard />,
+        element:<PrivateRoute><Dashboard></Dashboard> </PrivateRoute>,
         children:[
             {
                 path:'userHome',
@@ -77,6 +78,11 @@ export const router = createBrowserRouter([
                 path:'favBio/:id',
                 element:<FavouriteBio />,
                 loader: ({ params }) => fetch(`http://localhost:5000/fav-data/${params.id}`)
+            },
+            {
+                path:'reqBio/:id',
+                element:<ReqBio />,
+                // loader: ({ params }) => fetch(`http://localhost:5000/fav-data/${params.id}`)
             }
         ]
     }

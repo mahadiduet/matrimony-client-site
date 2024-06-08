@@ -11,7 +11,7 @@ const Header = () => {
         <Link className="p-4 text-2xl" to="/bio-data"><li>Biadates</li></Link>
         <Link className="p-4 text-2xl" to="/about"><li>About Us</li></Link>
         <Link className="p-4 text-2xl" to="/contact"><li>Contact Us</li></Link>
-        <Link className="p-4 text-2xl" to="/dashboard"><li>Dashboard</li></Link>
+        {user? <Link className="p-4 text-2xl" to="/dashboard"><li>Dashboard</li></Link>:""}
     </>
 
     const btn = <>

@@ -17,7 +17,7 @@ const CheckoutForm = () => {
     // const [cart, refetch] = useCar();
     const navigate = useNavigate();
     const biodateId = useParams();
-    console.log(biodateId.id);
+    // console.log(biodateId.id);
 
     const totalPrice = 5;
 
@@ -84,7 +84,7 @@ const CheckoutForm = () => {
                     price: totalPrice,
                     transactionId: paymentIntent.id,
                     date: new Date(),
-                    BiodateID: biodateId.id,
+                    BiodateID: parseInt(biodateId.id),
                     status: 'pending'
                 }
 

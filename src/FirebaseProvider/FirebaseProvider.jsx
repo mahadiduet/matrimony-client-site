@@ -62,7 +62,7 @@ const FirebaseProvider = ({ children }) => {
                 const userInfo = { email: currentUser.email };
                 axiosPublic.post('/jwt', userInfo)
                     .then(res => {
-                        console.log(res.data.token);
+                        // console.log(res.data.token);
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token);
                             setLoading(false);

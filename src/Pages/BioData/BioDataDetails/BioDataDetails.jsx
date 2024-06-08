@@ -18,6 +18,8 @@ const BioDataDetails = () => {
         contact_email, mobile_number } = data[0];
     const params = useParams();
 
+    // http://localhost:5000/bio-data/${params.id}
+
     useEffect(() => {
         const fetchData = async () => {
             try {
