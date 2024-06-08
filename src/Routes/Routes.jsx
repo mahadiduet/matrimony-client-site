@@ -18,6 +18,9 @@ import FavouriteBio from "../Pages/Dashboard/FavBio/FavouriteBio";
 import Payment from "../Pages/Payment/Payment";
 import ReqBio from "../Pages/Dashboard/ReqBio/ReqBio";
 import ManageUsers from "../Pages/ManageUsers/ManageUsers";
+import ApprovePremium from "../Pages/Dashboard/Admin/Premium/ApprovePremium";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import ApproveContact from "../Pages/Dashboard/Admin/ApproveContact/ApproveContact";
 
 export const router = createBrowserRouter([
     {
@@ -63,7 +66,15 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/manageUser',
-                element:<ManageUsers />
+                element:<AdminRoute><ManageUsers /></AdminRoute>
+            },
+            {
+                path:'/dashboard/approvedPremium',
+                element: <AdminRoute><ApprovePremium /></AdminRoute>
+            },
+            {
+                path:'/dashboard/approvedContact',
+                element:<AdminRoute><ApproveContact /></AdminRoute>
             },
             {
                 path:'addBiodata',
