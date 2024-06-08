@@ -13,6 +13,9 @@ import EditBiodata from "../Pages/Dashboard/Biodata/EditBiodata";
 import ViewBioData from "../Pages/Dashboard/Biodata/ViewBioData";
 import Biodatalist from "../Pages/BioData/BioDataList/Biodatalist";
 import BioDataDetails from "../Pages/BioData/BioDataDetails/BioDataDetails";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import FavouriteBio from "../Pages/Dashboard/FavBio/FavouriteBio";
+import Payment from "../Pages/Payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +42,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/view/:id',
-                element: <BioDataDetails />
+                element: <PrivateRoute><BioDataDetails /></PrivateRoute>,
+                loader:({ params }) =>fetch(`http://localhost:5000/view/${params.id}`)
+            },
+            {
+                path:'/checkout/:id',
+                element:<Payment />
             }
         ]
     },
@@ -64,6 +72,11 @@ export const router = createBrowserRouter([
                 path:'bioView/:id',
                 element:<ViewBioData />,
                 loader: ({ params }) => fetch(`http://localhost:5000/bio-data/${params.id}`)
+            },
+            {
+                path:'favBio/:id',
+                element:<FavouriteBio />,
+                loader: ({ params }) => fetch(`http://localhost:5000/fav-data/${params.id}`)
             }
         ]
     }

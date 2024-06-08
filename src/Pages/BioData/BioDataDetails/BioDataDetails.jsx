@@ -1,25 +1,30 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLoaderData, useParams } from "react-router-dom";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import BioCard from "../BioDataList/BioCard/BioCard";
+import { MdConnectWithoutContact, MdOutlineFavorite } from "react-icons/md";
+import { AuthContext } from "../../../FirebaseProvider/FirebaseProvider";
+import Swal from "sweetalert2";
 
 const BioDataDetails = () => {
 
-    const [viewData, setViewData] = useState([]);
-    const firstItem = viewData[0] || {};
-    const { _id, biodata_type, name, profile_image, date_of_birth, height,
+    const data = useLoaderData();
+    const { user } = useContext(AuthContext);
+    const [similar, setSimilar] = useState([]);
+    const axiosPublic = useAxiosPublic();
+    const { _id, biodata_type, BiodataId, name, profile_image, date_of_birth, height,
         weight, age, occupation, race, father_name, mother_name, permanent_division,
         present_division, expected_partner_age, expected_partner_height, expected_partner_weight,
-        contact_email, mobile_number } = firstItem;
+        contact_email, mobile_number } = data[0];
     const params = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await fetch(`http://localhost:5000/view?id=${params.id}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        setViewData(data);
-                        console.log(data);
-                    })
+                const response = await axiosPublic.get(`/similar-bio/?id=${data[0]._id}&gender=${data[0].biodata_type}`);
+                console.log('Similar Data', response.data);
+                setSimilar(response.data);
+
             } catch (err) {
                 // console.log(err);
             }
@@ -27,6 +32,40 @@ const BioDataDetails = () => {
 
         fetchData();
     }, [params.id]);
+
+    const handleFavorite = async(e) => {
+        e.preventDefault();
+        const email = user?.email;
+        const id = _id;
+        const favInfo = {
+            email, id, name, profile_image, occupation, permanent_division
+        }
+        // console.log(favInfo);
+
+        await axiosPublic.post('/favouriteAdd', favInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Favourite Bio-Data added successfully.',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            })
+
+    }
+
+    const handleRequestForContact = async(e)=>{
+        e.preventDefault();
+        const email = user?.email;
+        const id = _id;
+
+        const cartInfo = {
+            email, id, BiodataId, name, profile_image, occupation, permanent_division
+        }
+    }
 
 
     return (
@@ -73,6 +112,16 @@ const BioDataDetails = () => {
                         <p><span className="font-semibold">Email:</span> {contact_email}</p>
                         <p><span className="font-semibold">Mobile Number:</span> {mobile_number}</p>
                     </div>
+                    <button onClick={handleFavorite} type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Add to favourite</span> <MdOutlineFavorite></MdOutlineFavorite></div> </button>
+                    <Link to={`/checkout/${BiodataId}`}><button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Request for Contact Info</span> <MdConnectWithoutContact></MdConnectWithoutContact> </div> </button></Link>
+                </div>
+            </div>
+            <div className="py-8">
+                <h2 className="text-2xl font-bold mb-4">Similar BioDate</h2>
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
+                    {
+                        similar.map(data => <BioCard key={data._id} data={data}></BioCard>)
+                    }
                 </div>
             </div>
         </div>

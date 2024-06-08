@@ -32,7 +32,8 @@ const Registration = ({ children }) => {
                         // create user added to the database
                         const userInfo = {
                             name: name,
-                            email: email
+                            email: email,
+                            role:"user"
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {

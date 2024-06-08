@@ -19,7 +19,7 @@ const AddBiodata = () => {
         const date_of_birth = form.date_of_birth.value;
         const height = form.height.value;
         const weight = form.weight.value;
-        const age = form.age.value;
+        const age = parseInt(form.age.value);
         const occupation = form.occupation.value;
         const race = form.race.value;
         const father_name = form.father_name.value;
@@ -159,7 +159,7 @@ const AddBiodata = () => {
                         <option value="Barisal">Barisal</option>
                         <option value="Khulna">Khulna</option>
                         <option value="Maymansign">Maymansign</option>
-                        <option value="Sylhet]">Sylhet</option>
+                        <option value="Sylhet">Sylhet</option>
                     </select>
                 </div>
                 <div className="mb-4">
@@ -172,7 +172,7 @@ const AddBiodata = () => {
                         <option value="Barisal">Barisal</option>
                         <option value="Khulna">Khulna</option>
                         <option value="Maymansign">Maymansign</option>
-                        <option value="Sylhet]">Sylhet</option>
+                        <option value="Sylhet">Sylhet</option>
                     </select>
                 </div>
                 <div className="mb-4">
@@ -222,7 +222,7 @@ const AddBiodata = () => {
                     <label htmlFor="mobile-number" className="block font-semibold mb-2">Mobile Number</label>
                     <input type="tel" id="mobile-number" name="mobile_number" className="w-full border rounded-md px-3 py-2" required />
                 </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Submit</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Save and Publish</button>
             </form>
         </div>
     );

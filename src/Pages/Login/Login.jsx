@@ -3,10 +3,12 @@ import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
 
     const { signIn, googleSignIn } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -36,6 +38,16 @@ const Login = () => {
         console.log('Google login');
         googleSignIn()
             .then((result) => {
+                console.log(result.user);
+                const userInfo = {
+                    email: result.user?.email,
+                    name: result.user?.displayName,
+                    role: "user"
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data);
+                    })
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
