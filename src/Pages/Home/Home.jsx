@@ -1,14 +1,30 @@
 import { useLoaderData } from "react-router-dom";
 import Slider from "./Slider";
 import BioCard from "../BioData/BioDataList/BioCard/BioCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../Components/Share/SectionTitle";
+import CounterBio from "./CounterBio";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Home = () => {
 
     const bio = useLoaderData();
     const [bioData, setBioData] = useState(bio);
+    const axiosPublic = useAxiosPublic();
+    const [data, setData] = useState([]);
+
+
+    useEffect(()=>{
+        const fetachData = async()=>{
+            const res = await axiosPublic.get('/bio-data')
+            // console.log(res.data);
+            setData(res.data);
+        }
+        fetachData();
+    },[])
+
+
     const handleAcendingOrder = (e) => {
         e.preventDefault();
         const newValue = e.target.value;
@@ -41,6 +57,7 @@ const Home = () => {
                     bioData.map(data => <BioCard key={data._id} data={data}></BioCard>)
                 }
             </div>
+            <CounterBio data={data} />
         </div>
     );
 };

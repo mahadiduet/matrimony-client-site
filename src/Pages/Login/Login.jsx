@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Login = () => {
 
     const { signIn, googleSignIn } = useContext(AuthContext);
+    const [error, setError] = useState('');
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,7 +19,7 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        // console.log(email, password);
         signIn(email, password)
             .then(result => {
                 const user = result.user;
@@ -32,6 +33,11 @@ const Login = () => {
                 });
                 navigate(from, { replace: true });
             })
+            .catch((error) => {
+                console.log('error code:', error.code);
+                console.log('Error massage:', error.message);
+                setError(error.code);
+            });
     }
 
     const handleGoogleLogin = () => {
@@ -87,6 +93,16 @@ const Login = () => {
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
+                        {error ?
+                            <>
+                                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong className="font-bold">Error: </strong>
+                                    <span className="block sm:inline">User and password not match.</span>
+                                </div>
+                            </>
+                            :
+                            ""
+                        }
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
                         </div>

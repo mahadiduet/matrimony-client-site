@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { FaUsers } from "react-icons/fa6";
+import { FaDiamond, FaUser, FaUsers } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -24,6 +24,22 @@ const ManageUsers = () => {
                     Swal.fire({
                         icon: "success",
                         title: `Admin added successfully!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+    }
+
+    const handleMakePremium = user => {
+        axiosSecure.patch(`/users/admin/premium/${user._id}`)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        icon: "success",
+                        title: `Premium member successfully!`,
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -71,6 +87,7 @@ const ManageUsers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Premium Member</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -82,11 +99,19 @@ const ManageUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
+                                    {user?.premiumMember == 1? 'Premium' : <button
+                                        onClick={() => handleMakePremium(user)}
+                                        className="btn btn-md bg-blue-300">
+                                        <FaDiamond className="text-white 
+                                        text-2xl"></FaDiamond>
+                                    </button>}
+                                </td>
+                                <td>
                                     {user.role === 'admin' ? 'Admin' : <button
                                         onClick={() => handleMakeAdmin(user)}
                                         className="btn btn-md bg-blue-300">
-                                        <FaUsers className="text-white 
-                                        text-2xl"></FaUsers>
+                                        <FaUser className="text-white 
+                                        text-2xl"></FaUser>
                                     </button>}
                                 </td>
                                 <td>

@@ -11,20 +11,20 @@ const BioDataDetails = () => {
     const data = useLoaderData();
     const { user } = useContext(AuthContext);
     const [similar, setSimilar] = useState([]);
+    const [premium, setPremium] = useState('');
     const axiosPublic = useAxiosPublic();
     const { _id, biodata_type, BiodataId, name, profile_image, date_of_birth, height,
         weight, age, occupation, race, father_name, mother_name, permanent_division,
         present_division, expected_partner_age, expected_partner_height, expected_partner_weight,
         contact_email, mobile_number } = data[0];
     const params = useParams();
-
-    // http://localhost:5000/bio-data/${params.id}
+    const userEmail = user?.email;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axiosPublic.get(`/similar-bio/?id=${data[0]._id}&gender=${data[0].biodata_type}`);
-                console.log('Similar Data', response.data);
+                // console.log('Similar Data', response.data);
                 setSimilar(response.data);
 
             } catch (err) {
@@ -32,12 +32,20 @@ const BioDataDetails = () => {
             }
         };
 
-        fetchData();
-    }, [params.id]);
+        const fetchUser = async()=>{
+            const checkUser = await axiosPublic.get(`/users/${userEmail}`)
+            setPremium(checkUser.data.premiumMember)
+            // console.log('Database User:',checkUser.data.premiumMember);
+        }
 
-    const handleFavorite = async(e) => {
+        fetchData();
+        fetchUser();
+    }, [params.id, user]);
+
+    const handleFavorite = async (e) => {
         e.preventDefault();
         const email = user?.email;
+        
         const id = _id;
         const favInfo = {
             email, id, name, profile_image, occupation, permanent_division, BiodataId
@@ -59,7 +67,7 @@ const BioDataDetails = () => {
 
     }
 
-    const handleRequestForContact = async(e)=>{
+    const handleRequestForContact = async (e) => {
         e.preventDefault();
         const email = user?.email;
         const id = _id;
@@ -108,12 +116,18 @@ const BioDataDetails = () => {
                         <p><span className="font-semibold">Expected Partner Height:</span> {expected_partner_height}</p>
                         <p><span className="font-semibold">Expected Partner Weight:</span> {expected_partner_weight}</p>
                     </div>
+                    {premium === 1 ?
+                        <>
+                            <div>
+                                <h2 className="text-xl font-semibold mb-2">Contact Information</h2>
+                                <p><span className="font-semibold">Email:</span> {contact_email}</p>
+                                <p><span className="font-semibold">Mobile Number:</span> {mobile_number}</p>
+                            </div>
+                        </>
+                        :
+                        ""
+                        }
 
-                    <div>
-                        <h2 className="text-xl font-semibold mb-2">Contact Information</h2>
-                        <p><span className="font-semibold">Email:</span> {contact_email}</p>
-                        <p><span className="font-semibold">Mobile Number:</span> {mobile_number}</p>
-                    </div>
                     <button onClick={handleFavorite} type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Add to favourite</span> <MdOutlineFavorite></MdOutlineFavorite></div> </button>
                     <Link to={`/checkout/${BiodataId}`}><button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Request for Contact Info</span> <MdConnectWithoutContact></MdConnectWithoutContact> </div> </button></Link>
                 </div>

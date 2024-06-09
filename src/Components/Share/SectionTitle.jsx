@@ -1,9 +1,11 @@
 
 const SectionTitle = ({ title, subtitle }) => {
     return (
-        <div className="text-center bg-purple-200 py-4 mb-4">
-            <h2 className="text-3xl font-bold text-orange-600">{title}</h2>
-            <p className="mt-2 text-xl text-orange-300">---{subtitle}---</p>
+        <div className="text-center mt-8 mb-4">
+            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">{subtitle}</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                {title}
+            </p>
         </div>
     );
 };
