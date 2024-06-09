@@ -6,15 +6,58 @@ import { GiWeightLiftingUp } from "react-icons/gi";
 import { MdHeight } from "react-icons/md";
 import { RiExpandHeightFill, RiParentFill, RiParentLine } from "react-icons/ri";
 import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useEffect } from "react";
 
 const ViewBioData = () => {
 
     const bioData = useLoaderData();
-    const { _id, biodata_type, name, profile_image, date_of_birth, height,
+    const axiosPublic = useAxiosPublic()
+    const { _id, biodata_type, BiodataId, name, profile_image, date_of_birth, height,
         weight, age, occupation, race, father_name, mother_name, permanent_division,
         present_division, expected_partner_age, expected_partner_height, expected_partner_weight,
         contact_email, mobile_number } = bioData[0];
-    console.log(bioData, biodata_type)
+    // console.log(bioData, biodata_type)
+    const premiumInfo = {
+        id:_id, biodata_type, BiodataId, name, occupation, contact_email, mobile_number, permanent_division, status:'pending'
+    }
+
+    const handlePremium = () => {
+        Swal.fire({
+            title: "Are you sure request for premium?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosPublic.post(`/premium`, premiumInfo)
+                    .then(res => {
+                        // console.log(res.data.insertedId)
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                icon: "success",
+                                title: `Request send successfully!`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: "success",
+                                title: `Already exist request!`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+
+            }
+        });
+    }
 
 
     return (
@@ -84,11 +127,10 @@ const ViewBioData = () => {
                         <GiWeightLiftingUp></GiWeightLiftingUp>
                         <span className="text-gray-600">Expected Partner Weight: {expected_partner_weight}</span>
                     </div>
-                    
+
                 </div>
                 <div className="mt-6">
-                    <Link to={`/dashboard/bioEdit/${contact_email}`} className="text-indigo-600 hover:text-indigo-700 font-semibold text-sm">Update Bio</Link>
-                    {/* <a href="#" className="text-indigo-600 hover:text-indigo-700 font-semibold text-sm">View Profile</a> */}
+                    <button onClick={handlePremium} type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center">Request for Premium Bio</div> </button>
                 </div>
             </div>
         </div>

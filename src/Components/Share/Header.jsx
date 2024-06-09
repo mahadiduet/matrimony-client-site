@@ -15,8 +15,8 @@ const Header = () => {
     </>
 
     const btn = <>
-        <Link className="btn" to='/registration'>Sign Up</Link>
-        <Link className="btn" to='/login'>Sign In</Link>
+        <Link className="btn mr-4 text-secondary bg-gray-300" to='/registration'>Sign Up</Link>
+        <Link className="btn text-secondary bg-gray-300" to='/login'>Sign In</Link>
     </>
 
     const profile = <>
@@ -38,7 +38,7 @@ const Header = () => {
     // const logout = 
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-purple-500">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -48,7 +48,7 @@ const Header = () => {
                         {menu}
                     </ul>
                 </div>
-                <Link to="/"><a className="btn btn-ghost text-xl">Matrimony</a></Link>
+                <Link to="/"><a className="btn btn-ghost text-xl font-extrabold">Matrimony</a></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

@@ -46,7 +46,7 @@ const Registration = ({ children }) => {
                                         showConfirmButton: false,
                                         timer: 1000
                                     });
-                                    navigate('/');
+                                    navigate('/dashboard/addBiodata');
                                 }
                             })
                     })

@@ -4,11 +4,14 @@ const BioCard = ({ data }) => {
 
     const { _id, name, BiodataId, biodata_type, permanent_division, profile_image, age, occupation, present_division } = data;
     return (
-        <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+        <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg mt-4 mb-4">
      
             <div className="flex items-center justify-between px-6 py-4 border-b">
                 <img className="w-20 h-20 object-cover rounded-full" src={profile_image} alt="Profile Image" />
+                <div>
                 <div className="text-xl font-bold">Biodata Id: {BiodataId}</div>
+                <div className="text-xl font-bold">{name}</div>
+                </div>
             </div>
 
             <div className="px-6 py-4">

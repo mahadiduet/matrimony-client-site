@@ -14,7 +14,7 @@ const ApproveContact = () => {
         }
     })
 
-    console.log(contacts);
+    // console.log(contacts);
     const handleApprove = (contact) => {
         axiosSecure.patch(`/payments/${contact.BiodateID}`)
             .then(res => {

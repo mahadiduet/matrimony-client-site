@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const AddBiodata = () => {
 
@@ -9,6 +10,7 @@ const AddBiodata = () => {
     const { user } = useContext(AuthContext);
     const [bioExist, setBioExist] = useState(0);
     const user_email = user?.email;
+    const navigate = useNavigate();
 
     // fetch(`http://localhost:5000/bio-data/${params.id}`)
 
@@ -63,7 +65,7 @@ const AddBiodata = () => {
                         showConfirmButton: false,
                         timer: 1000
                     });
-                    // navigate('/');
+                    navigate(`/dashboard/bioView/${contact_email}`);
                 }
             })
     }

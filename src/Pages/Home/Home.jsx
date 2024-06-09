@@ -2,6 +2,8 @@ import { useLoaderData } from "react-router-dom";
 import Slider from "./Slider";
 import BioCard from "../BioData/BioDataList/BioCard/BioCard";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import SectionTitle from "../../Components/Share/SectionTitle";
 
 const Home = () => {
 
@@ -22,15 +24,19 @@ const Home = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Matrimony</title>
+            </Helmet>
             <Slider />
-            <div className="w-full">
-                <select onChange={handleAcendingOrder} className="select select-bordered w-[300px] mb-6">
+            <SectionTitle title="Latest Bio Data" subtitle="Find a life partner"></SectionTitle>
+            <div className="relative mb-20">
+                <select onChange={handleAcendingOrder} className="select select-bordered w-[300px] mb-6 absolute right-10">
                     <option selected>Sort</option>
                     <option value="acending">Age - Acending</option>
                     <option value="decending">Age - Decending</option>
                 </select>
             </div>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 bg-purple-200">
                 {
                     bioData.map(data => <BioCard key={data._id} data={data}></BioCard>)
                 }
