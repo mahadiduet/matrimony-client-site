@@ -4,7 +4,6 @@ import { MdContactMail } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const ApproveContact = () => {
-
     const axiosSecure = useAxiosSecure();
     const { data: contacts = [], refetch } = useQuery({
         queryKey: ['contacts'],
@@ -12,13 +11,15 @@ const ApproveContact = () => {
             const res = await axiosSecure.get('/payments');
             return res.data;
         }
-    })
+    });
 
-    // console.log(contacts);
+    
     const handleApprove = (contact) => {
-        axiosSecure.patch(`/payments/${contact.BiodateID}`)
+        const id = contact.BiodataId;
+        console.log(contact.BiodataId);
+        axiosSecure.patch(`/payments/${id}`)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
@@ -28,51 +29,53 @@ const ApproveContact = () => {
                         timer: 1500
                     });
                 }
-            })
-    }
+            });
+    };
 
     return (
-        <div>
-            <div className="flex justify-evenly my-4">
-                <h2 className="text-3xl">All Contact Request</h2>
-                <h2 className="text-3xl">Total Request: {contacts.length}</h2>
+        <div className="p-6 bg-white rounded-lg shadow-md">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-bold text-gray-800">All Contact Request</h2>
+                <h2 className="text-3xl font-bold text-gray-800">Total Request: {contacts.length}</h2>
             </div>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+                <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <td>Name</td>
-                            <td>Biodata Id</td>
-                            <td>Biodata Type</td>
-                            <td>Email</td>
-                            <td>Transaction Id</td>
-                            <td>Amount</td>
-                            <th>Action</th>
+                        <tr className="bg-blue-600 text-white">
+                            <th className="py-3 px-4 border-b">#</th>
+                            <th className="py-3 px-4 border-b">Name</th>
+                            <th className="py-3 px-4 border-b">Biodata Id</th>
+                            <th className="py-3 px-4 border-b">Biodata Type</th>
+                            <th className="py-3 px-4 border-b">Email</th>
+                            <th className="py-3 px-4 border-b">Transaction Id</th>
+                            <th className="py-3 px-4 border-b">Amount</th>
+                            <th className="py-3 px-4 border-b">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            contacts.map((contact, index) => <tr key={contact._id}>
-                                <th>{index + 1}</th>
-                                <td>{contact.name}</td>
-                                <td>{contact.BiodataId}</td>
-                                <td>{contact.biodata_type}</td>
-                                <td>{contact.email}</td>
-                                <td>{contact.transactionId}</td>
-                                <td>${contact.price}</td>
-                                <td>
-                                    {contact.status === 'approve' ? 'Approved' : <button
-                                        onClick={() => handleApprove(contact)}
-                                        className="btn btn-md bg-blue-300">
-                                        <MdContactMail className="text-white 
-                                        text-2xl"></MdContactMail>
-                                    </button>}
+                        {contacts.map((contact, index) => (
+                            <tr key={contact._id} className="hover:bg-gray-100">
+                                <td className="py-3 px-4 border-b text-center">{index + 1}</td>
+                                <td className="py-3 px-4 border-b">{contact.name}</td>
+                                <td className="py-3 px-4 border-b">{contact.BiodataId}</td>
+                                <td className="py-3 px-4 border-b">{contact.biodata_type}</td>
+                                <td className="py-3 px-4 border-b">{contact.email}</td>
+                                <td className="py-3 px-4 border-b">{contact.transactionId}</td>
+                                <td className="py-3 px-4 border-b">${contact.price}</td>
+                                <td className="py-3 px-4 border-b text-center">
+                                    {contact.status === 'approve' ? (
+                                        <span className="text-green-600 font-semibold">Approved</span>
+                                    ) : (
+                                        <button
+                                            onClick={() => handleApprove(contact)}
+                                            className="btn btn-md bg-blue-500 text-white hover:bg-blue-700 transition duration-200"
+                                        >
+                                            <MdContactMail className="text-xl" />
+                                        </button>
+                                    )}
                                 </td>
-
-                            </tr>)
-                        }
-
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
