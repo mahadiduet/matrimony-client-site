@@ -21,6 +21,7 @@ import ManageUsers from "../Pages/ManageUsers/ManageUsers";
 import ApprovePremium from "../Pages/Dashboard/Admin/Premium/ApprovePremium";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import ApproveContact from "../Pages/Dashboard/Admin/ApproveContact/ApproveContact";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
             {
                 path:'userHome',
                 element:<userHome />
+            },
+            {
+                path:'/dashboard',
+                element: <AdminDashboard />
             },
             {
                 path:'/dashboard/manageUser',

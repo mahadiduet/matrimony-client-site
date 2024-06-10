@@ -32,7 +32,7 @@ const BioDataDetails = () => {
             }
         };
 
-        const fetchUser = async()=>{
+        const fetchUser = async () => {
             const checkUser = await axiosPublic.get(`/users/${userEmail}`)
             setPremium(checkUser.data.premiumMember)
             // console.log('Database User:',checkUser.data.premiumMember);
@@ -45,7 +45,7 @@ const BioDataDetails = () => {
     const handleFavorite = async (e) => {
         e.preventDefault();
         const email = user?.email;
-        
+
         const id = _id;
         const favInfo = {
             email, id, name, profile_image, occupation, permanent_division, BiodataId
@@ -126,10 +126,16 @@ const BioDataDetails = () => {
                         </>
                         :
                         ""
-                        }
+                    }
 
                     <button onClick={handleFavorite} type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Add to favourite</span> <MdOutlineFavorite></MdOutlineFavorite></div> </button>
-                    <Link to={`/checkout/${BiodataId}`}><button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Request for Contact Info</span> <MdConnectWithoutContact></MdConnectWithoutContact> </div> </button></Link>
+                    {premium === 1 ?
+                        ""
+                        :
+                        <>
+                            <Link to={`/checkout/${BiodataId}`}><button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 mt-6"> <div className="flex gap-4 items-center"><span>Request for Contact Info</span> <MdConnectWithoutContact></MdConnectWithoutContact> </div> </button></Link>
+                        </>
+                    }
                 </div>
             </div>
             <div className="py-8">
