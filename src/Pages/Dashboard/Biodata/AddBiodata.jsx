@@ -12,7 +12,6 @@ const AddBiodata = () => {
     const user_email = user?.email;
     const navigate = useNavigate();
 
-    // fetch(`http://localhost:5000/bio-data/${params.id}`)
 
     useEffect(() => {
         const fetachData = async () => {

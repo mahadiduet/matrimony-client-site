@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
-                loader:()=>fetch('http://localhost:5000/bio-data-home')
+                loader:()=>fetch('https://matrimony-server-lilac.vercel.app/bio-data-home')
             },
             {
                 path:'/login',
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
             {
                 path:'/bio-data',
                 element: <Biodatalist />,
-                loader:()=>fetch('http://localhost:5000/bio-data')
+                loader:()=>fetch('https://matrimony-server-lilac.vercel.app/bio-data')
             },
             {
                 path:'/view/:id',

@@ -17,7 +17,7 @@ const FavouriteBio = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/fav-delete/${data._id}`, {
+                fetch(`https://matrimony-server-lilac.vercel.app/fav-delete/${data._id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())
