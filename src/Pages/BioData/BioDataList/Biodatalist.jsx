@@ -1,14 +1,15 @@
 import { useLoaderData } from "react-router-dom";
 import BioCard from "./BioCard/BioCard";
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import SectionTitle from "../../../Components/Share/SectionTitle";
+import { FaForward } from "react-icons/fa";
+import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 
 const Biodatalist = () => {
     const bio = useLoaderData();
-    console.log(bio);
+    const totalBiodata = bio.length;
     const [bioData, setBioData] = useState(bio);
-    // const [filteredData, setFilteredData] = useState([]);
+
     // Filter option
     const [ageRange, setAgeRange] = useState({ min: '', max: '' });
     const [filteredData, setFilteredData] = useState([]);
@@ -16,7 +17,9 @@ const Biodatalist = () => {
     const [maxAge, setMaxAge] = useState('');
     const [gender, setGender] = useState('');
     const [division, setDivision] = useState('');
-    // const [division, setDivision] = useState('');
+
+
+    // Handle Sorting
     const handleAcendingOrder = (e) => {
         e.preventDefault();
         const newValue = e.target.value;
@@ -31,10 +34,7 @@ const Biodatalist = () => {
     }
 
 
-    // const handleApplyFilters = () => {
-    //     applyFilters({ ageRange, gender, division });
-    // };
-
+    // Handle Filter
     const handleFilter = e => {
         e.preventDefault();
         const from = e.target;
@@ -52,17 +52,32 @@ const Biodatalist = () => {
 
     useEffect(() => {
         const filtered = bioData.filter(item => {
-          const age = item.age;
-          return (
-            (minAge === '' || age >= minAge) &&
-            (maxAge === '' || age <= maxAge) &&
-            (gender === '' || item.biodata_type === gender) &&
-            (division === '' || item.permanent_division === division)
-          );
+            const age = item.age;
+            return (
+                (minAge === '' || age >= minAge) &&
+                (maxAge === '' || age <= maxAge) &&
+                (gender === '' || item.biodata_type === gender) &&
+                (division === '' || item.permanent_division === division)
+            );
         });
         setFilteredData(filtered);
-      }, [minAge, maxAge, gender, division, bioData]);
+    }, [minAge, maxAge, gender, division, bioData]);
 
+
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9;
+
+    // Handle Pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div>
@@ -141,8 +156,33 @@ const Biodatalist = () => {
                     </div>
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
                         {
-                            filteredData.map(data => <BioCard key={data._id} data={data}></BioCard>)
+                            currentItems.map(data => <BioCard key={data._id} data={data}></BioCard>)
                         }
+                    </div>
+                    <div className="mt-4 flex justify-center">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            className={`px-3 py-1 mx-1 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+                            disabled={currentPage === 1}
+                        >
+                            <GrCaretPrevious />
+                        </button>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => handlePageChange(index + 1)}
+                                className={`px-3 py-1 mx-1 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className={`px-3 py-1 mx-1 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+                            disabled={currentPage === totalPages}
+                        >
+                            <GrCaretNext />
+                        </button>
                     </div>
                 </div>
             </div>
