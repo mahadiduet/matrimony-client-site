@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
             {
                 path:'/view/:id',
                 element: <PrivateRoute><BioDataDetails /></PrivateRoute>,
-                loader:({ params }) =>fetch(`http://localhost:5000/view/${params.id}`)
+                loader:({ params }) =>fetch(`https://matrimony-server-lilac.vercel.app/view/${params.id}`)
             },
             {
                 path:'/checkout/:id',
@@ -98,22 +98,21 @@ export const router = createBrowserRouter([
             {
                 path:'bioEdit/:id',
                 element:<EditBiodata />,
-                loader: ({ params }) => fetch(`http://localhost:5000/bio-data/${params.id}`)
+                loader: ({ params }) => fetch(`https://matrimony-server-lilac.vercel.app/bio-data/${params.id}`)
             },
             {
                 path:'bioView/:id',
                 element:<ViewBioData />,
-                loader: ({ params }) => fetch(`http://localhost:5000/bio-data/${params.id}`)
+                loader: ({ params }) => fetch(`https://matrimony-server-lilac.vercel.app/bio-data/${params.id}`)
             },
             {
                 path:'favBio/:id',
                 element:<FavouriteBio />,
-                loader: ({ params }) => fetch(`http://localhost:5000/fav-data/${params.id}`)
+                loader: ({ params }) => fetch(`https://matrimony-server-lilac.vercel.app/fav-data/${params.id}`)
             },
             {
                 path:'reqBio/:id',
                 element:<ReqBio />,
-                // loader: ({ params }) => fetch(`http://localhost:5000/fav-data/${params.id}`)
             }
         ]
     }
