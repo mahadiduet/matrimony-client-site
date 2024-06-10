@@ -23,6 +23,7 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import ApproveContact from "../Pages/Dashboard/Admin/ApproveContact/ApproveContact";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import About from "../Pages/About/About";
+import Contact from "../Pages/Contact/Contact";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path:'/about',
                 element: <About />
+            },
+            {
+                path:'/contact',
+                element: <Contact />
             }
         ]
     },
