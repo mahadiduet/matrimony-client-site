@@ -2,9 +2,6 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recha
 
 const PieChartView = ({pieChartData}) => {
 
-    // const {pieChartData.totalBiodates} = pieChartData;
-    // console.log(pieChartData.totalBiodates);
-
     const data = [
         { name: 'Total Biodata', value: pieChartData.totalBiodates },
         { name: 'Male Biodata', value: pieChartData.totalMaleBiodates },
