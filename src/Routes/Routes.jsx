@@ -22,6 +22,7 @@ import ApprovePremium from "../Pages/Dashboard/Admin/Premium/ApprovePremium";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import ApproveContact from "../Pages/Dashboard/Admin/ApproveContact/ApproveContact";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
+import About from "../Pages/About/About";
 
 export const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path:'/checkout/:id',
                 element:<Payment />
+            },
+            {
+                path:'/about',
+                element: <About />
             }
         ]
     },
