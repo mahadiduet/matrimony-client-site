@@ -43,7 +43,7 @@ const ViewBioData = () => {
                         } else {
                             Swal.fire({
                                 icon: "warning",
-                                title: `Request already exists!`,
+                                title: `Request already exists, waiting for approve!`,
                                 showConfirmButton: false,
                                 timer: 1500
                             });

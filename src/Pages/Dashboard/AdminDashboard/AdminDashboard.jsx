@@ -21,9 +21,10 @@ const AdminDashboard = () => {
     const totalBiodates = data.length;
     const totalMaleBiodates = data.filter(item => item.biodata_type === 'Male').length;
     const totalFemaleBiodates = data.filter(item => item.biodata_type === 'Female').length;
+    const totalPremiumBiodates = data.filter(item => item.status === 'approve').length;
     const totalMarriageStory = 6;
 
-    const pieChartData = {totalBiodates, totalMaleBiodates, totalFemaleBiodates, totalMarriageStory}
+    const pieChartData = {totalBiodates, totalMaleBiodates, totalFemaleBiodates, totalMarriageStory, totalPremiumBiodates}
 
     // console.log(totalBiodates, totalMaleBiodates, totalFemaleBiodates);
     return (

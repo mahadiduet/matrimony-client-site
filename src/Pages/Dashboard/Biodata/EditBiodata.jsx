@@ -8,11 +8,12 @@ const EditBiodata = () => {
 
     const bioData = useLoaderData();
     
-    console.log('Edit Bio Data',bioData)
-    console.log(bioData[0].name);
+    // console.log('Edit Bio Data',bioData)
+    // console.log(bioData[0].name);
+    const id=bioData[0]._id;
     const axiosPublic = useAxiosPublic();
-    console.log("BioData length", bioData.length);
-    const [selectedOption, setSelectedOption] = useState('');
+    // console.log("BioData length", bioData.length);
+    const [selectedOption, setSelectedOption] = useState(bioData[0].biodata_type);
 
     const handleEditBiodata = async (event) => {
         event.preventDefault();
@@ -42,8 +43,8 @@ const EditBiodata = () => {
             contact_email, mobile_number
         }
         // console.log(bioInfo);
-        const bioUpdate = await axiosPublic.put(`/bioData/${_id}`, bioInfo);
-        console.log(bioUpdate.data)
+        const bioUpdate = await axiosPublic.put(`/bioData/${id}`, bioInfo);
+        // console.log(bioUpdate.data)
         if (bioUpdate.data.modifiedCount > 0) {
             // show success popup
             // reset();
@@ -58,12 +59,12 @@ const EditBiodata = () => {
     }
 
     if (bioData[0].length > 0) {
-        console.log('tttttt');
+        // console.log('tttttt');
         const { _id, biodata_type, name, profile_image, date_of_birth, height,
             weight, age, occupation, race, father_name, mother_name, permanent_division,
             present_division, expected_partner_age, expected_partner_height, expected_partner_weight,
             contact_email, mobile_number } = bioData[0];
-            console.log(profile_image);
+            // console.log(profile_image);
         setSelectedOption(biodata_type);
     }
     const handleChange = (event) => {

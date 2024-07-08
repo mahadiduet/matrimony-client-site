@@ -23,7 +23,7 @@ const AddBiodata = () => {
 
     }, [user_email]);
 
-    console.log('Exist Data', bioExist);
+    // console.log('Exist Data', bioExist);
 
 
     const handleBiodata = event => {
@@ -56,7 +56,7 @@ const AddBiodata = () => {
         axiosPublic.post('/bioAdd', bioInfo)
             .then(res => {
                 if (res.data.insertedId) {
-                    console.log('Bio added to the database')
+                    // console.log('Bio added to the database')
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

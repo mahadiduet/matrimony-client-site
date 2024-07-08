@@ -6,10 +6,11 @@ const PieChartView = ({pieChartData}) => {
         { name: 'Total Biodata', value: pieChartData.totalBiodates },
         { name: 'Male Biodata', value: pieChartData.totalMaleBiodates },
         { name: 'Female Biodata', value: pieChartData.totalFemaleBiodates },
+        { name: 'Total PremiumBiodata', value: pieChartData.totalPremiumBiodates },
         { name: 'Marriage Story', value: pieChartData.totalMarriageStory },
     ];
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#DAF7A6'];
 
     return (
         <ResponsiveContainer width="100%" height={400}>

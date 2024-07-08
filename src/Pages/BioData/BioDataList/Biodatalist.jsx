@@ -41,9 +41,9 @@ const Biodatalist = () => {
         const min_age = from.min_age.value;
         const max_age = from.max_age.value;
         const gender = from.gender.value;
-        console.log(gender);
+        // console.log(gender);
         const division = from.division.value;
-        console.log(min_age, max_age, gender, division);
+        // console.log(min_age, max_age, gender, division);
         setMinAge(min_age);
         setMaxAge(max_age);
         setGender(gender);

@@ -11,6 +11,7 @@ const ReqBio = () => {
         queryKey: ['payments', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payments/${user.email}`)
+            console.log(res.data);
             return res.data;
         }
     })
@@ -40,7 +41,7 @@ const ReqBio = () => {
                                     {payments.map((payment, index) => <tr key={payment._id}>
                                         <th>{index + 1}</th>
                                         <th>{payment.name}</th>
-                                        <th>{payment.BiodataId}</th>
+                                        <th>{payment.BiodateID}</th>
                                         <td>{payment.status}</td>
                                         <td>{payment.status !== "pending" ? payment.mobile_number : ""}</td>
                                         <td>{payment.status !== "pending" ? payment.contact_email : ""}</td>

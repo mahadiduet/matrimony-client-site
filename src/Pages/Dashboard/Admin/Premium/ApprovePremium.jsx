@@ -16,7 +16,7 @@ const ApprovePremium = () => {
     const handleApprove = async(premium) => {
         await axiosSecure.patch(`/premium/${premium.id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({

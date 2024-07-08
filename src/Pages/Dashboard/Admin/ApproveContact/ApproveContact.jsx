@@ -9,17 +9,19 @@ const ApproveContact = () => {
         queryKey: ['contacts'],
         queryFn: async () => {
             const res = await axiosSecure.get('/payments');
+            // console.log(res.data);
             return res.data;
         }
     });
 
     
     const handleApprove = (contact) => {
-        const id = contact.BiodataId;
-        console.log(contact.BiodataId);
+        // console.log(contact);
+        const id = contact._id;
+        // console.log(contact._id);
         axiosSecure.patch(`/payments/${id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
@@ -57,12 +59,13 @@ const ApproveContact = () => {
                             <tr key={contact._id} className="hover:bg-gray-100">
                                 <td className="py-3 px-4 border-b text-center">{index + 1}</td>
                                 <td className="py-3 px-4 border-b">{contact.name}</td>
-                                <td className="py-3 px-4 border-b">{contact.BiodataId}</td>
+                                <td className="py-3 px-4 border-b">{contact.BiodateID}</td>
                                 <td className="py-3 px-4 border-b">{contact.biodata_type}</td>
                                 <td className="py-3 px-4 border-b">{contact.email}</td>
                                 <td className="py-3 px-4 border-b">{contact.transactionId}</td>
                                 <td className="py-3 px-4 border-b">${contact.price}</td>
                                 <td className="py-3 px-4 border-b text-center">
+                                    {console.log(contact)}
                                     {contact.status === 'approve' ? (
                                         <span className="text-green-600 font-semibold">Approved</span>
                                     ) : (

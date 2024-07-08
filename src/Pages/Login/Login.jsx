@@ -23,7 +23,7 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -34,17 +34,17 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch((error) => {
-                console.log('error code:', error.code);
-                console.log('Error massage:', error.message);
+                // console.log('error code:', error.code);
+                // console.log('Error massage:', error.message);
                 setError(error.code);
             });
     }
 
     const handleGoogleLogin = () => {
-        console.log('Google login');
+        // console.log('Google login');
         googleSignIn()
             .then((result) => {
-                console.log(result.user);
+                // console.log(result.user);
                 const userInfo = {
                     email: result.user?.email,
                     name: result.user?.displayName,
